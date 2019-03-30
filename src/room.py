@@ -36,7 +36,7 @@ class Room(Describable, Container):
             self.description = str(arr[1]);
             self.adjectives = arr[2];
             self.add_items(arr[3] if arr[3] is list else [arr[3]]);
-
+ 
 
             self.lit = int(arr[6]); #calc lit here
 ##            for i in range(0, len(arr[7])):
@@ -103,7 +103,6 @@ class Room(Describable, Container):
     def getdescriptbydirection(self, lit, d): #d is assumed relative direction
         lit += self.lit;
         output = "";
-        print(lit);
         d = abs(d-4);
         for i in self.adjectives:
             output += ((i+" ") if(random.randint(min(100,lit*int((4-d)/4)),101) > 90) else '');
@@ -138,14 +137,3 @@ class Room(Describable, Container):
 
 if __name__ == "__main__":
     print("");#for unit testing
-    import adv;
-    b = Room(["outside"]);
-    a = Room(["hello", "i exist", [], [], [], [], 100, [b]]);
-    print(a.name);
-    print(a.description);
-    #a.on_look(100);
-    #b.attach_room(0,a,False);
-    #a.to_n(b, False);
-    b.to_n(a, True);
-    print(b.attached_rooms[0].name);
-    print(a.attached_rooms[4].name);

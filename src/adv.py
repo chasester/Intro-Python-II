@@ -52,10 +52,10 @@ class _object:
 if __name__ == "__main__": #runs when called from this module
     while(True):
         r = room["outside"];
-        print(r.name);
-        print(r.description);
-        r.on_look(0);
-        break;
+        r.on_look(100);
+        instr = input("");
+        instr = instr.split(" ");
+        if(instr[0] == "q" or instr[0]== "quit"): break;
 #
 # Main
 #
