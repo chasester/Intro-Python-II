@@ -1,10 +1,10 @@
-import Containable from containable;
+from containable import *;
+import utls;
 class Container:
     items = [];
     def __init__(self):
         if(type(self) is Useable): #stop from letting the user call this directly so you can never make a class that is purely Describable
-            print("This is a base class do not contruct here");
-            raise;
+            debugprint("This is a base class do not contruct here", True);
 
     def add_item(self,item):
         if(not isinstance(item, Containable)): return;
@@ -15,7 +15,7 @@ class Container:
         items.append(item);
         item.on_add(self);
 
-    def add_items(self, parr):
+    def add_items(self, arr):
         for i in arr: self.add_item(i);
 
     def remove_item(self, item, parr):

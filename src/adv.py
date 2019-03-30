@@ -1,47 +1,46 @@
 #utl functions - may move to new file
-
+#north is 0 and goes counter clockwise with 8 axis directions (n,nw,w,sw,s,se,e,ne)
 
 from utls import *
 import operator
 
-def getplayer():
-    return player if(player) else debugprint("player has not been created but you tryed accessing it",True);
 
 from room import Room
-from player import Player
-player = Player();
 # Declare all the rooms
             
-##room = {
-##    'outside':  Room("Outside Cave Entrance",
-##                     "North of you, the cave mount beckons"),
-##
-##    'foyer':    Room("Foyer", """Dim light filters in from the south. Dusty
-##passages run north and east."""),
-##
-##    'overlook': Room("Grand Overlook", """A steep cliff appears before you, falling
-##into the darkness. Ahead to the north, a light flickers in
-##the distance, but there is no way across the chasm."""),
-##
-##    'narrow':   Room("Narrow Passage", """The narrow passage bends here from west
-##to north. The smell of gold permeates the air."""),
-##
-##    'treasure': Room("Treasure Chamber", """You've found the long-lost treasure
-##chamber! Sadly, it has already been completely emptied by
-##earlier adventurers. The only exit is to the south."""),
-##}
+room = {
+    'outside':  Room.Create("Outside Cave Entrance",
+                     "North of you, the cave mount beckons"),
+
+    'foyer':    Room.Create("Foyer", """Dim light filters in from the south. Dusty
+passages run north and east.""", ["bright", "beautiful", "well-lit"]),
+
+    'overlook': Room.Create("Grand Overlook", """A steep cliff appears before you, falling
+into the darkness. Ahead to the north, a light flickers in
+the distance, but there is no way across the chasm."""),
+
+    'narrow':   Room.Create("Narrow Passage", """The narrow passage bends here from west
+to north. The smell of gold permeates the air."""),
+
+    'treasure': Room.Create("Treasure Chamber", """You've found the long-lost treasure
+chamber! Sadly, it has already been completely emptied by
+earlier adventurers. The only exit is to the south."""),
+}
 
 
 # Link rooms together
 
-##room['outside'].n_to = room['foyer']
-##room['foyer'].s_to = room['outside']
-##room['foyer'].n_to = room['overlook']
-##room['foyer'].e_to = room['narrow']
-##room['overlook'].s_to = room['foyer']
-##room['narrow'].w_to = room['foyer']
-##room['narrow'].n_to = room['treasure']
-##room['treasure'].s_to = room['narrow']
+room['outside'].to_n(room['foyer']);
+room['overlook'].to_e(room['outside'], True);
+room['narrow'].to_w(room['outside'], True);
+room['foyer'].to_s(room['outside']);
+room['foyer'].to_n(room['overlook']);
+room['foyer'].to_e(room['narrow']);
+room['overlook'].to_s(room['foyer']);
+room['narrow'].to_w(room['foyer']);
+room['narrow'].to_n(room['treasure']);
+room['treasure'].to_s(room['narrow']);
+
 class _object:
     name = "";
     def __init__(self, name, direction=0):
@@ -51,13 +50,12 @@ class _object:
         return True;
         
 if __name__ == "__main__": #runs when called from this module
-    print(getrelativedirection(0,5));
     while(True):
-        r = Room("Outside");
-        r.add_item(_object("hello"), r.monsters);
-        r.on_look(30000);
+        r = room["outside"];
+        print(r.name);
+        print(r.description);
+        r.on_look(0);
         break;
-    print(r.name);
 #
 # Main
 #

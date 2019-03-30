@@ -18,5 +18,3 @@ class Describable:
                 s = i + " " + name;
         return s;
 
-def toNameCase(s):
-	return " ".join([i.capitalize() for i in str(s).split(" ")]);
